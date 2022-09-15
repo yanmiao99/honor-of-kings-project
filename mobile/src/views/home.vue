@@ -1,11 +1,10 @@
 <template>
   <div class="home">
-    <RouterView/>
+    123
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
 </script>
 
 <style scoped lang="scss">
