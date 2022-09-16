@@ -10,11 +10,11 @@
 
 #### 移动端 :
 
-> ✅ vue3.2 ✅ vite ✅ vant3 ✅ axios ✅ pinia ✅ sass ❌ echarts
+> ✅ vue3.2 ✅ vite ✅ vant3 ✅ axios ✅ pinia ✅ sass
 
 #### 管理后台 :
 
-> 暂无
+> ✅ vue3.2 ✅ vite ✅ element-plus ✅ axios ✅ pinia ✅ sass
 
 #### 服务端 :
 

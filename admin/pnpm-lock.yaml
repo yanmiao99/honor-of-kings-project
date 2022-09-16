@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@element-plus/icons-vue': ^2.0.9
   '@rushstack/eslint-patch': ^1.1.4
   '@vitejs/plugin-vue': ^3.0.3
   '@vue/eslint-config-prettier': ^7.0.0
@@ -16,6 +17,7 @@ specifiers:
   vue-router: ^4.1.5
 
 dependencies:
+  '@element-plus/icons-vue': 2.0.9_vue@3.2.39
   axios: 0.27.2
   element-plus: 2.2.16_vue@3.2.39
   pinia: 2.0.22_vue@3.2.39
