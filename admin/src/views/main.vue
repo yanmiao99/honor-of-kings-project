@@ -92,7 +92,8 @@ import {Menu as IconMenu, Setting} from '@element-plus/icons-vue'
   }
 
   .el-main {
-    padding: 0;
+    padding: 10px;
+    box-sizing: border-box;
   }
 
   .toolbar {
