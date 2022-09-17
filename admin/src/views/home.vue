@@ -1,27 +1,42 @@
 <template>
-  <el-container class="layout-container-demo">
+  <el-container class="layout-container">
     <el-header>
       <div class="toolbar">
-        <el-dropdown trigger="click">
-          <el-icon style="margin-right: 8px; margin-top: 1px;color:#fff">
-            <setting/>
-          </el-icon>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>View</el-dropdown-item>
-              <el-dropdown-item>Add</el-dropdown-item>
-              <el-dropdown-item>Delete</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <span>Tom</span>
+        <div class="toolbar-left">
+          <h1>
+            王者荣耀后台管理系统
+          </h1>
+        </div>
+
+        <div class="toolbar-right">
+          <el-dropdown trigger="click">
+            <div class="toolbar-user-info">
+              <el-icon>
+                <setting/>
+              </el-icon>
+              <span>Tom</span>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>修改密码</el-dropdown-item>
+                <el-dropdown-item>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </div>
     </el-header>
 
     <el-container>
       <el-aside width="200px">
         <el-scrollbar>
-          <el-menu router :default-openeds="['1']">
+          <el-menu
+              router
+              :default-openeds="['1']"
+              background-color="#282A36"
+              text-color="#fff"
+              active-text-color="#ffd04b"
+          >
             <el-sub-menu index="1">
               <template #title>
                 <el-icon>
@@ -42,11 +57,7 @@
       </el-aside>
       <el-main>
         <el-scrollbar>
-          <el-table :data="tableData">
-            <el-table-column prop="date" label="Date" width="140"/>
-            <el-table-column prop="name" label="Name" width="120"/>
-            <el-table-column prop="address" label="Address"/>
-          </el-table>
+          <router-view/>
         </el-scrollbar>
       </el-main>
     </el-container>
@@ -54,43 +65,65 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import {Menu as IconMenu, Message, Setting} from '@element-plus/icons-vue'
+import {RouterView} from 'vue-router'
+import {Menu as IconMenu, Setting} from '@element-plus/icons-vue'
 
-const item = {
-  date: '2016-05-02',
-  name: 'Tom',
-  address: 'No. 189, Grove St, Los Angeles'
-}
-const tableData = ref(Array.from({length: 10}).fill(item))
 </script>
 
 <style scoped lang="scss">
-.layout-container-demo .el-header {
-  position: relative;
-  background-color: #282A36;
-  color: #fff;
+
+.layout-container {
+  .el-header {
+    position: relative;
+    background-color: #282A36;
+    color: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .el-aside {
+    color: var(--el-text-color-primary);
+    background: #f5f5f5;
+    border-right: 1px solid #f0f0f0;
+  }
+
+  .el-menu {
+    border-right: none;
+    height: calc(100vh - 60px);
+  }
+
+  .el-main {
+    padding: 0;
+  }
+
+  .toolbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    .toolbar-left {
+      h1 {
+        color: #fff;
+        font-weight: bold;
+      }
+    }
+
+    .toolbar-right {
+      .toolbar-user-info {
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .el-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
 }
 
-.layout-container-demo .el-aside {
-  color: var(--el-text-color-primary);
-  background: #f5f5f5;
-}
-
-.layout-container-demo .el-menu {
-  border-right: none;
-}
-
-.layout-container-demo .el-main {
-  padding: 0;
-}
-
-.layout-container-demo .toolbar {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  height: 100%;
-  right: 20px;
-}
 </style>
