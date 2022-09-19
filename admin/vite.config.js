@@ -16,9 +16,11 @@ export default defineConfig({
     // host: getLocalIp, // 本机的局域网IP
     port: 2334, // 指定端口号
     proxy: {
-      // '/user': {
-      //     target: "http://127.0.0.1:3000/"  // 跨域配置
-      // }
+      '/api': { // 跨域配置
+        target: 'http://127.0.0.1:3000/admin/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
     }
   },
   resolve: {

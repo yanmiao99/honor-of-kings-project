@@ -12,6 +12,7 @@ specifiers:
   pinia: ^2.0.21
   prettier: ^2.7.1
   sass: ^1.54.9
+  utils: link:@/utils
   vite: ^3.0.9
   vue: ^3.2.38
   vue-router: ^4.1.5
@@ -22,6 +23,7 @@ dependencies:
   element-plus: 2.2.16_vue@3.2.39
   pinia: 2.0.22_vue@3.2.39
   sass: 1.54.9
+  utils: link:@/utils
   vue: 3.2.39
   vue-router: 4.1.5_vue@3.2.39
 
