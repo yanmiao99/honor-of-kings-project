@@ -5,8 +5,31 @@ html, body {
   color: #333;
 }
 
+/* 大标题 */
 .big-title {
   font-size: 24px;
   font-weight: bold;
   margin: 10px 0;
 }
+
+/* 功能区 */
+.function-area {
+  background: #fff;
+  border: 1px solid #ebeef5;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+
+  .search {
+    width: 250px;
+    margin-right: auto;
+  }
+
+  .create {
+    margin-right: 10px;
+  }
+}
+
+

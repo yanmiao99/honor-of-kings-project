@@ -10,12 +10,13 @@ module.exports = app => {
     // 判断是否已经有同名分类
     const selectSql = `select *
                            from categories
-                           where name = ${name}`
-    await con.query(selectSql, async (err, data) => {
+                           where name = ?
+                             and isDelete = 0`
+    await con.query(selectSql, name, async (err, data) => {
       if (err) {
         return err
       }
-      if (data.length > 1) {
+      if (data.length >= 1) {
         res.send({
           code: 400, msg: '已经存在同名分类', data: {}
         })
