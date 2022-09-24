@@ -3,7 +3,7 @@
   <el-table :data="tableData" stripe border style="width: 100%" :max-height="tableHeight">
     <el-table-column prop="id" label="ID" width="100" align="center"/>
     <el-table-column prop="name" label="分类名称"/>
-    <el-table-column fixed="right" label="operations" width="200" align="center">
+    <el-table-column fixed="right" label="操作" width="200" align="center">
       <template #default="scope">
         <el-button
             type="primary"

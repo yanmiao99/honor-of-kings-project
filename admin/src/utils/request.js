@@ -21,8 +21,8 @@ service.interceptors.response.use((res) => {
   } else if (code === 400) {
     // 请求失败
     ElMessage.error(msg)
+    return Promise.reject(msg) // 终止程序 
   }
-
   return res
 })
 

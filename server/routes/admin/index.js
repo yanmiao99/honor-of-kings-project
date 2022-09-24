@@ -6,19 +6,35 @@ module.exports = app => {
   // 创建分类
   router.post('/categories/add', async (req, res) => {
     const name = req.body.name
-    const sql = 'INSERT INTO categories SET ?'
-    // 1.数据库中插入数据
-    await con.query(sql, { name }, (err, data) => {
+
+    // 判断是否已经有同名分类
+    const selectSql = `select *
+                           from categories
+                           where name = ${name}`
+    await con.query(selectSql, async (err, data) => {
       if (err) {
         return err
       }
-      if (data.affectedRows === 1) {
+      if (data.length > 1) {
         res.send({
-          code: 200, msg: '数据添加成功', data: {}
+          code: 400, msg: '已经存在同名分类', data: {}
         })
       } else {
-        res.send({
-          code: 400, msg: '数据添加失败', data: {}
+        // 没有同名分类则开始创建
+        const insertSql = 'insert into categories set ?'
+        await con.query(insertSql, { name }, (err, data) => {
+          if (err) {
+            return err
+          }
+          if (data.affectedRows === 1) {
+            res.send({
+              code: 200, msg: '数据添加成功', data: {}
+            })
+          } else {
+            res.send({
+              code: 400, msg: '数据添加失败', data: {}
+            })
+          }
         })
       }
     })
