@@ -3,6 +3,9 @@ module.exports = app => {
   const router = express.Router()
   const con = require('../../db/index')
 
+  /**
+     * 创建分类
+     */
   router.post('/categories/add', async (req, res) => {
     const name = req.body.name
     const sql = 'INSERT INTO categories SET ?'

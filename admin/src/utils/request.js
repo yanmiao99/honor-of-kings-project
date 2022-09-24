@@ -17,8 +17,7 @@ service.interceptors.response.use((res) => {
 
   if (code === 200) {
     // 请求成功
-    ElMessage.success(msg)
-    return data
+    return res.data
   } else if (code === 400) {
     // 请求失败
     ElMessage.error(msg)
@@ -41,9 +40,7 @@ function request(options) {
 ['get', 'post', 'put', 'delete'].forEach((item) => {
   request[item] = (url, data) => {
     return request({
-      url,
-      data,
-      method: item
+      url, data, method: item
     })
   }
 })
