@@ -36,7 +36,9 @@
               background-color="#282A36"
               text-color="#fff"
               active-text-color="#ffd04b"
+              :default-active="$route.path"
           >
+            <!-- $route.path 解决路由跳转后菜单不会跟随变化的问题 -->
             <el-sub-menu index="1">
               <template #title>
                 <el-icon>
@@ -49,7 +51,7 @@
                 <el-menu-item index="/categories/list">分类列表</el-menu-item>
               </el-menu-item-group>
               <el-menu-item-group title="Group 2">
-                <el-menu-item index="1-3">Option 3</el-menu-item>
+                <el-menu-item index="1-3">test</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
           </el-menu>
