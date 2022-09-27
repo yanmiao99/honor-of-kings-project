@@ -47,8 +47,8 @@
                 内容管理
               </template>
               <el-menu-item-group title="分类">
-                <el-menu-item index="/categories/create">创建分类</el-menu-item>
                 <el-menu-item index="/categories/list">分类列表</el-menu-item>
+                <el-menu-item index="/categories/list1">test</el-menu-item>
               </el-menu-item-group>
               <el-menu-item-group title="Group 2">
                 <el-menu-item index="1-3">test</el-menu-item>

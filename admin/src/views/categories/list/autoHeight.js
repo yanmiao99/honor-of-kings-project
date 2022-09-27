@@ -3,10 +3,10 @@ import {nextTick} from 'vue'
 export let tableHeight = $ref(100) // table 高度
 
 // 动态计算高度
-export const getAutoHeight = () => {
+export const getAutoHeight = (otherHeight) => {
   nextTick(() => {
     // 屏幕高度 - 188 (除了表格之外其他元素的高度)
-    tableHeight = document.body.scrollHeight - 188
+    tableHeight = document.body.scrollHeight - otherHeight
   })
 }
 

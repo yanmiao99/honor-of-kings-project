@@ -36,9 +36,10 @@
 
   <!-- 表格展示 -->
   <el-table :data="tableData" stripe border style="width: 100%" :max-height="tableHeight">
+
     <el-table-column prop="id" label="ID" width="100" align="center"/>
     <el-table-column prop="name" label="分类名称"/>
-    <el-table-column fixed="right" label="操作" width="200" align="center">
+    <el-table-column fixed="right" label="操作" width="150" align="right">
       <template #default="scope">
         <el-button
             type="primary"
@@ -56,6 +57,7 @@
     </el-table-column>
   </el-table>
   <!-- 分页 -->
+  <el-pagination background layout="prev, pager, next" :total="1000"/>
 </template>
 
 <script setup>
@@ -70,12 +72,16 @@ import {Search} from '@element-plus/icons-vue'
 
 onMounted(() => {
   getCategoriesList() // 请求数据
-  getAutoHeight() // 动态计算表格高度
+  getAutoHeight(240) // 动态计算表格高度
 })
 
 
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.el-pagination {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
 </style>
