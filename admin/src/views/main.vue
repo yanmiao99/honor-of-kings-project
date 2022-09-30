@@ -4,7 +4,7 @@
       <div class="toolbar">
         <div class="toolbar-left">
           <h1>
-            王者荣耀后台管理系统
+            后台管理系统
           </h1>
         </div>
 

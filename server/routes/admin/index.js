@@ -1,4 +1,3 @@
-const con = require('../../db')
 module.exports = app => {
   const express = require('express')
   const router = express.Router()
@@ -49,7 +48,7 @@ module.exports = app => {
     const start = (pageNum - 1) * pageSize
 
     const sql = 'select * from categories where isDelete != 1 limit ?, ?'
-    const sqlCount = 'select count(*) from categories'
+    const sqlCount = 'select count(*) from categories where isDelete != 1'
 
     // eslint-disable-next-line no-unused-vars
     let count
@@ -70,9 +69,9 @@ module.exports = app => {
         code: 200,
         msg: '数据查询成功',
         data: {
-          list: {
+          list: [
             ...data
-          },
+          ],
           pageNum,
           pageSize,
           count

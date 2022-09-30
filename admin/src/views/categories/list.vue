@@ -57,7 +57,13 @@
     </el-table-column>
   </el-table>
   <!-- 分页 -->
-  <el-pagination background layout="prev, pager, next" :total="1000"/>
+  <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="pageTotal"
+      v-model:currentPage="curPage"
+      @current-change="handleCurrentChange"
+  />
 </template>
 
 <script setup>
@@ -65,7 +71,7 @@ import {onMounted} from 'vue'
 import {getAutoHeight, tableHeight} from './list/autoHeight'
 import {handleSearchCategoriesName, searchName} from './list/search'
 import {handleCreateCategories, categoriesName, dialogFormVisible} from './list/create'
-import {getCategoriesList, tableData} from './list/getList'
+import {getCategoriesList, tableData, pageTotal, curPage, handleCurrentChange} from './list/getList'
 import {handleEditItemCategories} from './list/edit'
 import {handleDeleteItemCategories} from './list/delete'
 import {Search} from '@element-plus/icons-vue'
@@ -74,7 +80,6 @@ onMounted(() => {
   getCategoriesList() // 请求数据
   getAutoHeight(240) // 动态计算表格高度
 })
-
 
 </script>
 
