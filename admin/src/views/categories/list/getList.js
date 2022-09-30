@@ -1,5 +1,6 @@
 import request from '../../../utils/request'
 import {ElMessage} from 'element-plus'
+import {handleSearchCategoriesName, searchName} from './search'
 
 // 表格数据
 export let tableData = $ref([])
@@ -8,17 +9,18 @@ export let tableData = $ref([])
 export let pageTotal = $ref(10)
 export let curPage = $ref(1)
 
-
 // 获取分类列表
 export const getCategoriesList = async () => {
-  let newTableData = []  // 这里用覆盖, 可以防止切换闪烁
   let res = await request.get('categories/list', {
     pageSize: 10, pageNum: curPage
   })
+  renderTableData(res)
+}
+
+// 渲染表格数据
+export const renderTableData = (res) => {
+  let newTableData = []  // 这里用覆盖, 可以防止切换闪烁
   if (res.data.count > 0) {
-    // ElMessage({
-    //   message: res.msg, type: 'success'
-    // })
     // 渲染数据
     res.data.list.forEach(({id, name}) => {
       newTableData.push({
@@ -41,5 +43,9 @@ export const getCategoriesList = async () => {
 
 // 切换分页
 export const handleCurrentChange = async (e) => {
-  await getCategoriesList()
+  if (searchName === '') {
+    await getCategoriesList()
+  } else {
+    await handleSearchCategoriesName()
+  }
 }

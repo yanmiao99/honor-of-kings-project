@@ -5,7 +5,7 @@
   <!-- 功能区域 -->
   <div class="function-area">
     <div class="search">
-      <el-input v-model="searchName" placeholder="请输入分类名称">
+      <el-input v-model="searchName" placeholder="请输入分类名称" @keyup.enter="handleSearchCategoriesName">
         <template #append>
           <el-button :icon="Search" @click="handleSearchCategoriesName"/>
         </template>

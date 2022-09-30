@@ -1,11 +1,12 @@
+const con = require('../../db')
 module.exports = app => {
+  const con = require('../../db/index')
   const express = require('express')
   const router = express.Router()
-  const con = require('../../db/index')
 
   /**
      * 创建分类
-     * @param {object} name 必选 分类名称
+     * @param {string} name 必选 分类名称
      */
   router.post('/add', async (req, res) => {
     const name = req.body.name
@@ -43,8 +44,8 @@ module.exports = app => {
 
   /**
      * 分类列表
-     * @param pageNum 可选 当前页码 , 默认 1 条
-     * @param pageSize 可选 返回数据条目 , 默认 10 条
+     * @param {number} pageNum 可选 当前页码 , 默认 1 条
+     * @param {number} pageSize 可选 返回数据条目 , 默认 10 条
      */
   router.get('/list', async (req, res) => {
     // ?pageNum=1&pageSize=10
@@ -89,7 +90,7 @@ module.exports = app => {
 
   /**
      * 删除单条数据
-     * @param id 必选 分类id
+     * @param {number} id 必选 分类id
      */
   router.post('/delete', async (req, res) => {
     // 1.获取id
@@ -119,6 +120,68 @@ module.exports = app => {
         res.send({
           code: 400,
           msg: '删除失败',
+          data: {}
+        })
+      }
+    })
+  })
+
+  /**
+     * 模糊搜索 🔍
+     * @param {string} key 需要搜索的关键词
+     * @param {number} pageNum 可选 当前页码 , 默认 1 条
+     * @param {number} pageSize 可选 返回数据条目 , 默认 10 条
+     */
+  router.get('/search', async (req, res) => {
+    // 关键词
+    const key = '%%' + req.query.key + '%%'
+    // 搜索语句
+    const pageSize = Number(req.query.pageSize) || 10 // 查询多少条 (默认查询10条)
+    const pageNum = Number(req.query.pageNum) || 1 // 查询第几页 (默认第一页)
+
+    const start = (pageNum - 1) * pageSize
+
+    const sql = 'select * from categories where name like ? and isDelete != 1 limit ?,?'
+
+    // 获取总数
+    const sqlCount = 'select count(*) from categories where name like ? and isDelete != 1'
+
+    // eslint-disable-next-line no-unused-vars
+    let count
+    // eslint-disable-next-line n/handle-callback-err
+    await con.query(sqlCount, key, (err, result) => {
+      // 得到总记录数
+      count = result[0]['count(*)']
+    })
+
+    // 搜索
+    con.query(sql, [key, start, pageSize], (err, data) => {
+      if (err) {
+        res.send({
+          msg: '暂未找到对应数据',
+          code: 400,
+          data: err
+        })
+        return err
+      }
+
+      if (data.length > 0) {
+        res.send({
+          msg: `查询到了${data.length}条数据`,
+          code: 200,
+          data: {
+            list: [
+              ...data
+            ],
+            pageNum,
+            pageSize,
+            count
+          }
+        })
+      } else {
+        res.send({
+          msg: '暂未找到对应数据',
+          code: 400,
           data: {}
         })
       }

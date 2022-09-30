@@ -113,6 +113,12 @@ FROM user
 SELECT COUNT(*)
 FROM user
 WHERE status = 0
+
+-- 模糊搜索 (百分号代表模糊搜索)
+    let key = '%%' + req.query.key + '%%'
+select *
+from categories
+where name like key and isDelete != 1
 ```
 
 #### AS 别名
