@@ -11,20 +11,21 @@ export let curPage = $ref(1)
 
 // 获取分类列表
 export const getCategoriesList = async () => {
-  tableData = []
+  let newTableData = []  // 这里用覆盖, 可以防止切换闪烁
   let res = await request.get('categories/list', {
     pageSize: 10, pageNum: curPage
   })
   if (res.data.count > 0) {
-    ElMessage({
-      message: res.msg, type: 'success'
-    })
+    // ElMessage({
+    //   message: res.msg, type: 'success'
+    // })
     // 渲染数据
     res.data.list.forEach(({id, name}) => {
-      tableData.push({
+      newTableData.push({
         id, name
       })
     })
+    tableData = newTableData
 
     // 总数
     pageTotal = res.data.count

@@ -35,8 +35,14 @@
   </el-dialog>
 
   <!-- 表格展示 -->
-  <el-table :data="tableData" stripe border style="width: 100%" :max-height="tableHeight">
-
+  <el-table
+      :data="tableData"
+      stripe
+      border
+      style="width: 100%"
+      :max-height="tableHeight"
+      :key="'tableKey'"
+  >
     <el-table-column prop="id" label="ID" width="100" align="center"/>
     <el-table-column prop="name" label="分类名称"/>
     <el-table-column fixed="right" label="操作" width="150" align="right">
