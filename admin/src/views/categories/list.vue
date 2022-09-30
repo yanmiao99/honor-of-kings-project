@@ -53,12 +53,22 @@
             @click.prevent="handleEditItemCategories(scope.row)">
           编辑
         </el-button>
-        <el-button
-            type="danger"
-            size="small"
-            @click.prevent="handleDeleteItemCategories(scope.row)">
-          删除
-        </el-button>
+
+        <el-popconfirm
+            title="是否删除本条数据?"
+            cancel-button-type="primary"
+            confirm-button-type="danger"
+            hide-icon
+            @confirm="handleDeleteItemCategories(scope.row)">
+          <template #reference>
+            <el-button
+                type="danger"
+                size="small">
+              删除
+            </el-button>
+          </template>
+        </el-popconfirm>
+
       </template>
     </el-table-column>
   </el-table>
