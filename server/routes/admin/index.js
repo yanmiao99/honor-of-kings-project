@@ -77,12 +77,7 @@ module.exports = app => {
         code: 200,
         msg: '数据查询成功',
         data: {
-          list: [
-            ...data
-          ],
-          pageNum,
-          pageSize,
-          count
+          list: [...data], pageNum, pageSize, count
         }
       })
     })
@@ -102,9 +97,7 @@ module.exports = app => {
     con.query(sql, id, (err, data) => {
       if (err) {
         res.send({
-          code: 400,
-          msg: '所删除的对应数据不存在',
-          data: {}
+          code: 400, msg: '所删除的对应数据不存在', data: {}
         })
         return err
       }
@@ -112,15 +105,11 @@ module.exports = app => {
       // 删除成功
       if (data.affectedRows === 1) {
         res.send({
-          code: 200,
-          msg: '删除成功',
-          data: {}
+          code: 200, msg: '删除成功', data: {}
         })
       } else {
         res.send({
-          code: 400,
-          msg: '删除失败',
-          data: {}
+          code: 400, msg: '删除失败', data: {}
         })
       }
     })
@@ -158,9 +147,7 @@ module.exports = app => {
     con.query(sql, [key, start, pageSize], (err, data) => {
       if (err) {
         res.send({
-          msg: '暂未找到对应数据',
-          code: 400,
-          data: err
+          msg: '暂未找到对应数据', code: 400, data: err
         })
         return err
       }
@@ -170,19 +157,45 @@ module.exports = app => {
           msg: `查询到了${data.length}条数据`,
           code: 200,
           data: {
-            list: [
-              ...data
-            ],
-            pageNum,
-            pageSize,
-            count
+            list: [...data], pageNum, pageSize, count
           }
         })
       } else {
         res.send({
-          msg: '暂未找到对应数据',
-          code: 400,
-          data: {}
+          msg: '暂未找到对应数据', code: 400, data: {}
+        })
+      }
+    })
+  })
+
+  /**
+     * 更新一条数据
+     * @param {number} id 必选
+     */
+  router.post('/update', (req, res) => {
+    // 1. 获取id 和 需要更新的数据
+    const id = req.body.id
+    const name = req.body.name
+
+    // 2. sql 语句
+    const sql = 'update categories set name = ? where id = ?'
+
+    // 3. 执行数据库操作
+    con.query(sql, [name, id], (err, data) => {
+      if (err) {
+        res.send({
+          code: 400, msg: '数据更新失败', data: {}
+        })
+        return err
+      }
+
+      if (data.affectedRows === 1) {
+        res.send({
+          code: 200, msg: '数据更新成功', data: {}
+        })
+      } else {
+        res.send({
+          code: 400, msg: '数据更新失败', data: {}
         })
       }
     })
