@@ -12,7 +12,7 @@
       </el-input>
     </div>
     <div class="create">
-      <el-button type="primary" @click="dialogFormVisible = true">创建</el-button>
+      <el-button type="primary" @click="handleCreateItemCategories">创建</el-button>
     </div>
     <div class="batch-delete">
       <el-button type="danger">批量删除</el-button>
@@ -20,16 +20,16 @@
   </div>
 
   <!-- 创建弹窗 -->
-  <el-dialog v-model="dialogFormVisible" title="创建">
+  <el-dialog v-model="dialogFormInfo.visible" :title="dialogFormInfo.title">
     <el-form>
       <el-form-item label="名称">
-        <el-input v-model="categoriesName" autocomplete="off" placeholder="请输入分类名称"/>
+        <el-input v-model="dialogFormInfo.name" autocomplete="off" placeholder="请输入分类名称"/>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleCreateCategories">确认</el-button>
+        <el-button @click="dialogFormInfo.visible = false">取消</el-button>
+        <el-button type="primary" @click="handleCategoriesDialogConfirm">确认</el-button>
       </span>
     </template>
   </el-dialog>
@@ -86,8 +86,9 @@
 import {onMounted} from 'vue'
 import {getAutoHeight, tableHeight} from './list/autoHeight'
 import {handleSearchCategoriesName, searchName} from './list/search'
-import {handleCreateCategories, categoriesName, dialogFormVisible} from './list/create'
+import {dialogFormInfo, handleCategoriesDialogConfirm} from './list/dialog'
 import {getCategoriesList, tableData, pageTotal, curPage, handleCurrentChange} from './list/getList'
+import {handleCreateItemCategories} from './list/create'
 import {handleEditItemCategories} from './list/edit'
 import {handleDeleteItemCategories} from './list/delete'
 import {Search} from '@element-plus/icons-vue'
