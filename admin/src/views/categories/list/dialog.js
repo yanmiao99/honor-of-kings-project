@@ -8,9 +8,9 @@ export let dialogFormInfo = $ref({
   name: '', title: '创建', visible: false, row: {}
 })
 
-
 // 创建分类
 export const handleCategoriesDialogConfirm = async () => {
+
   if (dialogFormInfo.name === '') {
     ElMessage({
       message: '请输入分类名称', type: 'warning'

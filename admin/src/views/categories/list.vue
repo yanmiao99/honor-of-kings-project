@@ -23,7 +23,13 @@
   <el-dialog v-model="dialogFormInfo.visible" :title="dialogFormInfo.title">
     <el-form>
       <el-form-item label="名称">
-        <el-input v-model="dialogFormInfo.name" autocomplete="off" placeholder="请输入分类名称"/>
+        <el-input
+            clearable
+            :max="10"
+            ref="elDialogInput"
+            autocomplete="off"
+            v-model="dialogFormInfo.name"
+            placeholder="请输入分类名称"/>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -72,6 +78,7 @@
       </template>
     </el-table-column>
   </el-table>
+
   <!-- 分页 -->
   <el-pagination
       background
@@ -83,11 +90,11 @@
 </template>
 
 <script setup>
-import {onMounted} from 'vue'
+import {nextTick, onMounted, ref, watch} from 'vue'
 import {getAutoHeight, tableHeight} from './list/autoHeight'
 import {handleSearchCategoriesName, searchName} from './list/search'
-import {dialogFormInfo, handleCategoriesDialogConfirm} from './list/dialog'
-import {getCategoriesList, tableData, pageTotal, curPage, handleCurrentChange} from './list/getList'
+import {handleCategoriesDialogConfirm, dialogFormInfo} from './list/dialog'
+import {getCategoriesList, handleCurrentChange, tableData, pageTotal, curPage} from './list/getList'
 import {handleCreateItemCategories} from './list/create'
 import {handleEditItemCategories} from './list/edit'
 import {handleDeleteItemCategories} from './list/delete'
@@ -97,6 +104,17 @@ onMounted(() => {
   getCategoriesList() // 请求数据
   getAutoHeight(240) // 动态计算表格高度
 })
+
+// 监听输入框自动获取焦点
+const elDialogInput = ref(null)
+watch(dialogFormInfo, async (newData, oldData) => {
+  await nextTick(() => {
+    setTimeout(() => {
+      elDialogInput.value.focus()
+    }, 0)
+  })
+}, {immediate: false, deep: true})
+
 
 </script>
 
